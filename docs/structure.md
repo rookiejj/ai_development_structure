@@ -138,20 +138,21 @@ my-project/
 
 1. 구조는 협업 기준으로 설계하되, 모든 파일을 항상 사용하지 않는다.
 
-2. 초기 활성 파일 (스크립트로 생성 또는 템플릿 repo에 포함):
+2. 초기 활성 파일 (템플릿 repo에 포함되거나, clone 후 로컬 작업 파일로 준비):
    - .ai/config.md
    - .ai/map.md
    - .ai/memory/context.md
    - .ai/memory/personal.example.md
+   - tasks/backlog.example.md
    - .ai/memory/patterns.md
    - tasks/current.example.md
 
-   팀 템플릿 repo에서 가져오는 파일 (생성 아닌 참조):
+   팀 템플릿 repo에서 그대로 가져오는 공통 파일:
    - docs/onboarding.md
    - docs/workflow.md
    - docs/reference.md
 
-   clone 후 로컬 작업 파일로 복사:
+   clone 후 개인 작업용으로 복사:
    - .ai/memory/personal.example.md -> .ai/memory/personal.md
    - tasks/current.example.md -> tasks/current.md
    - tasks/backlog.example.md -> tasks/backlog.md (필요할 때만)

@@ -1,13 +1,13 @@
 # AI Dev Template
 
 AI 협업 개발을 위한 프로젝트 템플릿입니다.
-코드, AI 컨텍스트, 팀 문서, 작업 상태를 분리해서 관리할 수 있도록 구성되어 있습니다.
+팀 공통 문서와 프로젝트 구조를 repo로 공유하고, 개인 작업 파일은 로컬에서 따로 준비할 수 있도록 구성되어 있습니다.
 
 ## 목적
 
 - AI가 매번 처음 프로젝트를 읽지 않도록 기준과 기억을 구조화합니다.
 - 사람과 AI가 같은 작업 맥락을 공유할 수 있게 합니다.
-- 새 프로젝트를 시작할 때 반복되는 문서 구성을 템플릿으로 제공합니다.
+- 새 프로젝트를 시작할 때 반복되는 문서 구성을 repo 템플릿으로 제공합니다.
 
 ## 구조
 
@@ -22,16 +22,17 @@ src/   실제 애플리케이션 코드
 
 ## 시작 방법
 
-1. 이 저장소를 새 프로젝트의 시작점으로 복제합니다.
-2. 프로젝트에 맞게 `.ai/config.md`, `.ai/map.md`, `.ai/memory/context.md`를 채웁니다.
-3. `tasks/current.example.md`를 `tasks/current.md`로 복사해 현재 작업을 작성합니다.
-4. `.ai/memory/personal.example.md`를 `.ai/memory/personal.md`로 복사해 개인 스타일을 작성합니다.
+1. 이 저장소를 프로젝트 시작점으로 clone 합니다.
+2. `.\init-local.ps1`를 실행해 개인 작업용 로컬 파일을 준비합니다.
+3. 프로젝트에 맞게 `.ai/config.md`, `.ai/map.md`, `.ai/memory/context.md`를 채웁니다.
+4. 필요하면 `tasks/backlog.example.md`도 `tasks/backlog.md`로 복사합니다.
 5. 사용하는 AI 도구에 맞게 규칙 파일 연결을 설정합니다.
 
 PowerShell 예시:
 
 ```powershell
 Copy-Item tasks/current.example.md tasks/current.md
+Copy-Item tasks/backlog.example.md tasks/backlog.md
 Copy-Item .ai/memory/personal.example.md .ai/memory/personal.md
 ```
 
@@ -40,6 +41,8 @@ Copy-Item .ai/memory/personal.example.md .ai/memory/personal.md
 ```powershell
 .\init-local.ps1
 ```
+
+이 단계는 공통 문서를 새로 생성하는 과정이 아니라, clone 받은 repo에서 개인 작업 파일만 준비하는 과정입니다.
 
 초기 세팅 가이드는 [docs/onboarding.md](docs/onboarding.md)를 참고하세요.
 
