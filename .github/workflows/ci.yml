@@ -1,0 +1,47 @@
+name: CI Validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-cli:
+    name: Test Node.js CLI & Script
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Using Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+    - name: Run init-project.js
+      run: |
+        node init-project.js
+        if [ ! -f "docs/architecture.md" ]; then 
+          echo "Error: docs/architecture.md not found!"
+          exit 1
+        fi
+        if [ ! -f ".gitignore" ]; then 
+          echo "Error: .gitignore not found!"
+          exit 1
+        fi
+
+  test-bash:
+    name: Test Bash Script
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run init-project.sh
+      run: |
+        chmod +x init-project.sh
+        ./init-project.sh
+        if [ ! -f "docs/architecture.md" ]; then 
+          echo "Error: docs/architecture.md not found!"
+          exit 1
+        fi
+        if [ ! -f ".gitignore" ]; then 
+          echo "Error: .gitignore not found!"
+          exit 1
+        fi

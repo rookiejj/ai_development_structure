@@ -324,12 +324,16 @@ tasks/current.md
 
 ---
 
-### 10. 작업이 너무 많아질 때
+### 10. 작업이 너무 많아질 때 (컨텍스트 압축)
 
-`tasks/current.md`만으로 관리가 안 된다 싶으면
-→ `tasks/backlog.example.md`를 참고해서 `tasks/backlog.md`를 만들고, current에는 이번 주 것만 남김
+AI 도구들은 대화나 `tasks/current.md`가 지나치게 길어지면 컨텍스트를 잃거나 환각(Hallucination)을 일으킬 수 있습니다.
+이때는 **컨텍스트 압축(Context Compression)** 을 실행합니다.
 
----
+**압축 방법:**
+1. `.ai/prompts/compress-context.md` 프롬프트를 사용하여 AI에게 현재 `current.md`의 요약을 지시합니다.
+2. 완료된 작업의 핵심 인사이트는 `docs/decisions.md`나 `.ai/memory/patterns.md`로 옮깁니다.
+3. 요약된 과거 작업 내역은 `tasks/archive/` 폴더 하위에 날짜별로 보관합니다.
+4. `current.md`에는 아직 진행 중이거나 앞으로 집중할 핵심 작업만 가볍게 남깁니다.
 
 ## 마무리 (기능 완료 또는 하루 끝)
 

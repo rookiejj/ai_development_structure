@@ -1,0 +1,29 @@
+{
+  "name": "ai-dev-structure",
+  "version": "1.0.0",
+  "description": "AI 개발자와 협업하기 위한 템플릿 제너레이터입니다.",
+  "main": "init-project.js",
+  "bin": {
+    "create-ai-structure": "bin/cli.js"
+  },
+  "scripts": {
+    "init:ai": "node bin/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dpdtydz/ai_development_structure.git"
+  },
+  "keywords": [
+    "ai",
+    "template",
+    "cursor",
+    "windsurf",
+    "claude"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dpdtydz/ai_development_structure/issues"
+  },
+  "homepage": "https://github.com/dpdtydz/ai_development_structure#readme"
+}
