@@ -18,7 +18,7 @@ tasks/ 현재 작업 상태와 백로그
 src/   실제 애플리케이션 코드
 ```
 
-자세한 구조 설명은 [docs/structure.md](/f:/sourcecode/superhuman-light/doc/ai_dev/docs/structure.md)에서 확인할 수 있습니다.
+자세한 구조 설명은 [docs/structure.md](docs/structure.md)에서 확인할 수 있습니다.
 
 ## 시작 방법
 
@@ -41,16 +41,16 @@ Copy-Item .ai/memory/personal.example.md .ai/memory/personal.md
 .\init-local.ps1
 ```
 
-초기 세팅 가이드는 [docs/onboarding.md](/f:/sourcecode/superhuman-light/doc/ai_dev/docs/onboarding.md)를 참고하세요.
+초기 세팅 가이드는 [docs/onboarding.md](docs/onboarding.md)를 참고하세요.
 
 ## 문서 안내
 
-- 구조와 도입 가이드: [docs/onboarding.md](/f:/sourcecode/superhuman-light/doc/ai_dev/docs/onboarding.md)
-- 일상 작업 흐름: [docs/workflow.md](/f:/sourcecode/superhuman-light/doc/ai_dev/docs/workflow.md)
-- 파일별 작성 예시: [docs/reference.md](/f:/sourcecode/superhuman-light/doc/ai_dev/docs/reference.md)
-- 설계와 기록: [docs/architecture.md](/f:/sourcecode/superhuman-light/doc/ai_dev/docs/architecture.md), [docs/decisions.md](/f:/sourcecode/superhuman-light/doc/ai_dev/docs/decisions.md)
+- 구조와 도입 가이드: [docs/onboarding.md](docs/onboarding.md)
+- 일상 작업 흐름: [docs/workflow.md](docs/workflow.md)
+- 파일별 작성 예시: [docs/reference.md](docs/reference.md)
+- 설계와 기록: [docs/architecture.md](docs/architecture.md), [docs/decisions.md](docs/decisions.md)
 
 ## Git 관리
 
-이 폴더를 독립 저장소로 운영할 수 있도록 [`.gitignore`](/f:/sourcecode/superhuman-light/doc/ai_dev/.gitignore)를 포함했습니다.
+이 폴더를 독립 저장소로 운영할 수 있도록 [`.gitignore`](.gitignore)를 포함했습니다.
 환경 파일, 로그, 빌드 산출물, 에디터 로컬 설정은 기본적으로 제외됩니다.
