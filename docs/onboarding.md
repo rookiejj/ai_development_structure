@@ -44,9 +44,10 @@ tasks/      → 현재 실행 중인 작업 상태 (개인 운영)
    git clone [팀 템플릿 repo URL] my-project
    ```
 
-2. **4번 초기화 스크립트로 프로젝트 전용 파일 생성**
-   - 이 스크립트는 프로젝트마다 새로 만들어야 하는 파일만 생성한다
-   - `docs/onboarding.md`, `docs/workflow.md`, `docs/reference.md`는 생성하지 않는다
+2. **4번 초기화 스크립트로 로컬 작업 파일만 준비한다**
+   - 전제: 프로젝트 repo와 팀 공통 문서는 이미 clone 되어 있다
+   - 이 스크립트는 repo를 다시 구성하지 않고, 개인이 바로 작업할 수 있게 로컬 파일만 준비한다
+   - `docs/onboarding.md`, `docs/workflow.md`, `docs/reference.md` 같은 팀 자산은 생성하지 않는다
 
 3. **아래 파일부터 채운다 (나머지는 비워둬도 됨)**
 
@@ -172,165 +173,60 @@ Claude.ai (웹)
 
 ## 4. 프로젝트 초기화 스크립트
 
-이 스크립트는 **프로젝트 전용 파일만** 생성한다.
-`docs/onboarding.md`, `docs/workflow.md`, `docs/reference.md`는 팀 공통 자산이므로
-스크립트로 생성하지 않는다. 팀 템플릿 repo 클론으로 가져온다.
+여기서 말하는 초기화는 **repo 생성**이 아니라 **clone 받은 repo를 작업 가능한 상태로 준비**하는 것이다.
 
-> 스크립트 실행 전에 반드시 팀 템플릿 repo 클론을 먼저 진행할 것. (2번 참고)
+- 이미 repo에는 공통 구조와 템플릿 파일이 들어있다고 가정한다
+- 초기화 스크립트는 `*.example.md`를 개인 작업용 파일로 복사하는 정도만 담당한다
+- `README.md`, `docs/*.md`, `.airules`, `.ai/prompts/*` 같은 공통 파일은 새로 만들지 않는다
 
-### 4.1 Node.js 사용 시 (init-project.js)
+> 즉, 레포가 이미 있다면 "대부분의 파일을 생성"하는 방식보다 "이미 있는 템플릿을 복사/보완"하는 방식이 맞다.
 
-프로젝트 루트에 `init-project.js` 파일을 만든다.
+### 4.1 PowerShell 사용 시 (권장)
 
-```javascript
-const fs = require("fs");
-const path = require("path");
+이 repo에는 이미 [`init-local.ps1`](/f:/sourcecode/ai_development_structure/init-local.ps1)가 들어 있다.
+이 스크립트는 아래 로컬 파일만 준비한다.
 
-const base = process.cwd();
-
-function createFile(filePath, content = "") {
-  const fullPath = path.join(base, filePath);
-  const dir = path.dirname(fullPath);
-
-  fs.mkdirSync(dir, { recursive: true });
-
-  if (!fs.existsSync(fullPath)) {
-    fs.writeFileSync(fullPath, content.trim());
-    console.log("Created:", filePath);
-  }
-}
-
-function run() {
-  createFile(".ai/config.md", "# AI 작업 기준");
-  createFile(".ai/map.md", "# 구조 요약");
-
-  createFile(".ai/memory/context.md", "# 프로젝트 개요");
-  createFile(".ai/memory/patterns.md", "# 패턴");
-  createFile(".ai/memory/personal.example.md", "# 개인 스타일");
-
-  createFile(".ai/rules.md", "# 규칙");
-
-  createFile(".ai/prompts/feature.md", "# 기능 개발");
-  createFile(".ai/prompts/bugfix.md", "# 버그 수정");
-  createFile(".ai/prompts/refactor.md", "# 리팩토링");
-  createFile(".ai/prompts/review.md", "# 코드 리뷰");
-
-  createFile("docs/architecture.md", "# 구조");
-  createFile("docs/plan.md", "# 로드맵");
-  createFile("docs/research.md", "# 조사");
-  createFile("docs/decisions.md", "# 의사결정");
-  // onboarding.md, workflow.md, reference.md는 팀 템플릿 repo에서 가져옴 (생성 안 함)
-
-  createFile("tasks/current.example.md", "# 현재 작업");
-  createFile("tasks/backlog.example.md", "# 백로그");
-  createFile("tasks/sprint/sprint-01.md", "# 스프린트");
-
-  createFile(".airules", "# 규칙 요약");
-  createFile("README.md", "# 프로젝트");
-
-  createFile(".gitignore", `
-tasks/current.md
-tasks/backlog.md
-.ai/memory/personal.md
-node_modules
-.env
-`);
-}
-
-run();
-```
+- `tasks/current.example.md` → `tasks/current.md`
+- `tasks/backlog.example.md` → `tasks/backlog.md`
+- `.ai/memory/personal.example.md` → `.ai/memory/personal.md`
 
 실행:
 
-```bash
-node init-project.js
+```powershell
+.\init-local.ps1
 ```
 
-npm 스크립트 등록 (권장):
+이미 파일이 있으면 덮어쓰지 않고 건너뛴다.
 
-```json
-{
-  "scripts": {
-    "init:ai": "node init-project.js"
-  }
-}
+### 4.2 직접 복사할 때
+
+스크립트를 쓰지 않아도 아래처럼 직접 복사하면 된다.
+
+```powershell
+Copy-Item tasks/current.example.md tasks/current.md
+Copy-Item tasks/backlog.example.md tasks/backlog.md
+Copy-Item .ai/memory/personal.example.md .ai/memory/personal.md
 ```
 
-```bash
-npm run init:ai
-```
+필요한 경우에만 `backlog.md`를 만든다.
 
-생성 후에는 `tasks/current.example.md`를 `tasks/current.md`로,
-`.ai/memory/personal.example.md`를 `.ai/memory/personal.md`로 복사해 실제 개인 작업 파일을 만든다.
+### 4.3 새 템플릿 repo를 만드는 경우만 예외
+
+Node.js나 Bash로 여러 파일을 한꺼번에 생성하는 스크립트는
+**이 저장소 자체를 템플릿으로 처음 만드는 사람**에게는 유용할 수 있다.
+하지만 일반 사용자는 그런 스크립트를 만들 필요가 없다.
+일반 사용자의 시작점은 "팀 템플릿 repo clone 완료 상태"다.
 
 ---
 
-### 4.2 Bash 사용 시 (init-project.sh)
-
-`init-project.sh`
-
-```bash
-#!/bin/bash
-
-mkdir -p .ai/memory
-mkdir -p .ai/prompts
-mkdir -p docs
-mkdir -p tasks/sprint
-
-touch .ai/config.md
-touch .ai/map.md
-
-touch .ai/memory/context.md
-touch .ai/memory/patterns.md
-touch .ai/memory/personal.example.md
-
-touch .ai/rules.md
-
-touch .ai/prompts/feature.md
-touch .ai/prompts/bugfix.md
-touch .ai/prompts/refactor.md
-touch .ai/prompts/review.md
-
-touch docs/architecture.md
-touch docs/plan.md
-touch docs/research.md
-touch docs/decisions.md
-# onboarding.md, workflow.md, reference.md는 팀 템플릿 repo에서 가져옴 (생성 안 함)
-
-touch tasks/current.example.md
-touch tasks/backlog.example.md
-touch tasks/sprint/sprint-01.md
-
-touch .airules
-touch README.md
-
-echo "tasks/current.md" >> .gitignore
-echo "tasks/backlog.md" >> .gitignore
-echo ".ai/memory/personal.md" >> .gitignore
-
-echo "Project initialized"
-```
-
-실행:
-
-```bash
-chmod +x init-project.sh
-./init-project.sh
-```
-
-생성 후에는 `tasks/current.example.md`를 `tasks/current.md`로,
-`.ai/memory/personal.example.md`를 `.ai/memory/personal.md`로 복사해 실제 개인 작업 파일을 만든다.
-
----
-
-### 4.3 언제 사용하나
+### 4.4 언제 사용하나
 
 * 새 프로젝트 시작 시
 * 기존 프로젝트에 구조 도입 시
 
 ---
 
-### 4.4 원칙
+### 4.5 원칙
 
 * 구조는 수동 생성 금지
 * 반드시 스크립트 사용
